@@ -1,4 +1,5 @@
-import { create } from "zustand";
+import { create } from "zustand"
+import { createSelectors } from "../store"
 
 
 export type SampleState = {
@@ -8,19 +9,15 @@ export type SampleState = {
   }
 }
 
-type ArticleActions = {
-  updateInformation: ( information: Partial<SampleState["information"]> ) => void
-}
-
-export const useSampleStore = create<SampleState & ArticleActions>(set =>({
+export const useSampleStoreBase = create<SampleState>(() => ({
   information: {
-    title: "No more AI",
+    title: "Title",
     description: "Description"
   },
-  updateInformation: (newArticle: Partial<SampleState["information"]>) => set(state => ({
-    information: {
-      ...state.information,
-      ...newArticle
-    }
-  }))
-}))
+})) 
+
+export const updateSampleInformation = ( newInformation: SampleState["information"]) => useSampleStoreBase.setState({
+  information: newInformation
+}) 
+
+export const useSampleStore = createSelectors(useSampleStoreBase)

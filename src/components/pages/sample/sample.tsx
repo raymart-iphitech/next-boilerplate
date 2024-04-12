@@ -1,16 +1,19 @@
-import { useSampleStore } from "@/store/sample/sample"
+import { 
+  updateSampleInformation, 
+  useSampleStore } from "@/store/sample/sample"
 
 
 const Sample = () =>{
-  const { information, updateInformation } = useSampleStore()
+  const { information } = useSampleStore()
 
   return (
     <div>
       <h1>{ information.title }</h1>
       <p>{ information.description }</p>
       <button onClick={() =>{
-        updateInformation({
-          title: "New title from button"
+        updateSampleInformation({
+          title: "New title from button",
+          description: "New description"
         })
       }}>Click</button>
     </div>
